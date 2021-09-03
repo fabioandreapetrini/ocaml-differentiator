@@ -33,26 +33,19 @@ let rec deriva = function
   | _ -> Costante(0.0);;
   
 
-(* Conversione delle espressioni da expression a string *)
-let print_expr exp =
-	let rec print exp =
-		match exp with
-		| Costante c -> string_of_float(c)
-		| Variabile v -> v
-		| Som(f, g) -> "(" ^ (print f) ^ " + " ^ (print g) ^ ")";
-		| Diff(f, g) -> "(" ^ (print f) ^ " - " ^ (print g) ^ ")";
-		| Molt(f, g) -> "(" ^ (print f) ^ " * " ^ (print g) ^ ")";
-		| Div(f, g) -> "(" ^ (print f) ^ " / " ^ (print g) ^ ")";
-		| Power(f, e) -> "" ^ (print f) ^ "^(" ^ print(e) ^ ")";
-		| Logaritmo(f) -> "ln(" ^ (print f) ^ ")";
-		| Seno(f) -> "sin(" ^ (print f) ^ ")";
-		| Coseno(f) -> "cos(" ^ (print f) ^ ")";
-		| Tangente(f) -> "tan(" ^ (print f) ^ ")";
-		| Cotangente(f) -> "cot(" ^ (print f) ^ ")";
-		| _ -> "erorr";
-	in print exp;;
+let rec stampaEspressione = function
+| Costante x -> print_string "Costante(";     print_float x;      print_string "0)"
+| Variabile x -> print_string "Variabile(";   print_string x;     print_string ")"
+| Som(e1,e2) -> print_string " Som(";         stampaEspressione e1;         print_string ", ";        stampaEspressione e2;          print_string ")"
+| Diff(e1,e2) -> print_string " Diff(";       stampaEspressione e1;         print_string ", ";        stampaEspressione e2;          print_string ")"
+| Molt (e1,e2) -> print_string " Molt(";      stampaEspressione e1;         print_string ", ";        stampaEspressione e2;          print_string ")"
+| Div (e1,e2) -> print_string " Div(";        stampaEspressione e1;         print_string ", ";        stampaEspressione e2;          print_string ")"
+| Power (e1,e2) -> print_string " Power(";    stampaEspressione e1;         print_string ", ";        stampaEspressione e2;          print_string ")"
+| Seno e -> print_string " Seno(";            stampaEspressione e;          print_string ")"
+| Coseno e -> print_string " Coseno(";        stampaEspressione e;          print_string ")"
+| Tangente e -> print_string " Tangente(";            stampaEspressione e;          print_string ")"
+| Cotangente e -> print_string " Cotangente(";            stampaEspressione e;          print_string ")"
+| Logaritmo e -> print_string " Logaritmo(";            stampaEspressione e;          print_string ")"
+| _ -> print_string "null";;
 
-  let a_string = "ciao";;
-  Printf.printf "Debug: %s\n" a_string;
-
-
+stampaEspressione(deriva (Som(Molt(Costante(2.0), Variabile "x"),Costante(5.0))) );;
