@@ -7,3 +7,9 @@ lexer.ml
 parser.cmi
 parser.cmo
 parser.ml
+parser.mli
+outputLexer
+outputLexer.cmi
+outputLexer.cmo
+input_example
+
