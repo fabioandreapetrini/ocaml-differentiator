@@ -1,10 +1,15 @@
 /* File parser.mly */
 %token <int> INT
-%token PLUS MINUS TIMES DIV
+%token <float> FLOAT 
+%token <string> VAR
+%token PLUS MINUS TIMES DIV POWER
 %token LPAREN RPAREN
-%token EOL
+%token EOL 
+%token EOF 
+%token LOG SIN COS TAN COT
 %left PLUS MINUS        /* lowest precedence */
 %left TIMES DIV         /* medium precedence */
+%left POWER             /* medium precedence */
 %nonassoc UMINUS        /* highest precedence */
 %start main             /* the entry point */
 %type <int> main
