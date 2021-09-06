@@ -14,6 +14,9 @@ type expr =
   | Cosecante of expr 
   | Logaritmo of expr;;
 
+  type listaExpr =
+ListaExpr of (expr list);;
+
 
 let rec deriva = function
     Costante n -> Costante(0.0)
@@ -48,4 +51,4 @@ let rec stampaEspressione = function
 | Logaritmo e -> print_string " Logaritmo(";            stampaEspressione e;          print_string ")"
 | _ -> print_string "null";;
 
-stampaEspressione(deriva (Som(Molt(Costante(2.0), Variabile "x"),Costante(5.0))) );;
+

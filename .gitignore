@@ -12,4 +12,7 @@ outputLexer
 outputLexer.cmi
 outputLexer.cmo
 input_example
+derivaFunzioni
+derivaFunzioni.cmi
+derivaFunzioni.cmo
 
