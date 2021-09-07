@@ -19,10 +19,24 @@ open Deriv
 %type <Deriv.expr> main
 %%
 main:
-    expr EOL                { $1 }
+    | expr EOL 				{ $1 } 
 ;
 
+
 expr:
-	| INT { Deriv.Costante (float_of_int $1) } 
-	| FLOAT { Deriv.Costante $1 }	
+	| INT 								{ Deriv.Costante (float_of_int $1) } 
+	| FLOAT 							{ Deriv.Costante $1 }	
+	| VAR 								{ Deriv.Variabile $1 }
+	| expr PLUS expr 			{ Deriv.Som($1, $3) } 
+	| expr MINUS expr 		{ Deriv.Diff($1, $3) } 
+	| expr TIMES expr 		{ Deriv.Molt($1, $3) } 
+	| expr DIV expr 			{ Deriv.Div($1, $3) } 
+	| expr POWER expr 		{ Deriv.Power($1, $3) } 
+	| LPAREN expr RPAREN 	{ $2 } 
+	| LOG expr						{ Deriv.Logaritmo($2) }
+	| SIN expr						{ Deriv.Seno($2) }
+	| COS expr						{ Deriv.Coseno($2) }
+	| TAN expr						{ Deriv.Tangente($2) }
+	| COT expr						{ Deriv.Cotangente($2) }
 ;
+

@@ -5,10 +5,13 @@ open Deriv
 
 let rec elaboraRisposte lexbuf1 =
   let result = Parser.main Lexer.token lexbuf1 in
-      Deriv.stampaEspressione (Deriv.deriva result);
-      flush stdout;
-      (* print_string lexbuf1.lex_buffer; *)
-      elaboraRisposte lexbuf1
+          Deriv.stampaEspressione (Deriv.deriva result);
+          print_newline();
+          print_newline(); 
+          flush stdout;
+          (* print_string lexbuf1.lex_buffer; *)
+          elaboraRisposte lexbuf1
+
 
 
 let _ =

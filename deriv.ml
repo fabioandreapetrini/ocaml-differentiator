@@ -1,5 +1,6 @@
 type expr =
-    Costante of float
+  None
+  |  Costante of float
   | Variabile of string
   | Som of expr * expr
   | Diff of expr * expr
@@ -14,8 +15,6 @@ type expr =
   | Cosecante of expr 
   | Logaritmo of expr;;
 
-  type listaExpr =
-ListaExpr of (expr list);;
 
 
 let rec deriva = function
