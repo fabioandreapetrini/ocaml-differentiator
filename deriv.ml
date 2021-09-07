@@ -51,3 +51,17 @@ let rec stampaEspressione = function
 | _ -> print_string "null";;
 
 
+let rec stampaEspressioneMath = function
+| Costante x ->     Printf.printf "%.*f" 2 x;
+| Variabile x ->    print_string x;
+| Som(e1,e2) ->     stampaEspressioneMath e1;  print_string " + "; stampaEspressioneMath e2;
+| Diff(e1,e2) ->    stampaEspressioneMath e1;  print_string " - "; stampaEspressioneMath e2;
+| Molt (e1,e2) ->   stampaEspressioneMath e1;  print_string " * "; stampaEspressioneMath e2;
+| Div (e1,e2) ->    stampaEspressioneMath e1;  print_string " / "; stampaEspressioneMath e2;        
+| Power (e1,e2) ->  stampaEspressioneMath e1;  print_string "^"; stampaEspressioneMath e2;        
+| Seno e ->         print_string " sin(";  stampaEspressioneMath e;   print_string ")"
+| Coseno e ->       print_string " cos(";  stampaEspressioneMath e;   print_string ")"
+| Tangente e ->     print_string " tan(";  stampaEspressioneMath e;   print_string ")"
+| Cotangente e ->   print_string " cot(";  stampaEspressioneMath e;   print_string ")"
+| Logaritmo e ->    print_string " log(";  stampaEspressioneMath e;   print_string ")"
+| _ -> print_string "null";;
