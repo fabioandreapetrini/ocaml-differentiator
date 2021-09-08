@@ -12,7 +12,7 @@ ocamlc -c outputLexer.ml
 ocamlc -o outputLexer lexer.cmo parser.cmo outputLexer.cmo
 
 ocamlc -c derivaFunzioni.ml
-ocamlc -o derivaFunzioni lexer.cmo parser.cmo deriv.cmo derivaFunzioni.cmo
-
+#ocamlc -o derivaFunzioni lexer.cmo parser.cmo deriv.cmo derivaFunzioni.cmo
+ocamlc -custom -o derivaFunzioni lexer.cmo parser.cmo deriv.cmo derivaFunzioni.cmo
 
 
