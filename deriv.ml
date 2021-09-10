@@ -1,3 +1,5 @@
+exception DivisionByZero;;
+
 type expr =
   None
   |  Costante of float
@@ -65,3 +67,81 @@ let rec stampaEspressioneMath = function
 | Cotangente e ->   print_string " cot(";  stampaEspressioneMath e;   print_string ")"
 | Logaritmo e ->    print_string " log(";  stampaEspressioneMath e;   print_string ")"
 | _ -> print_string "null";;
+
+
+(* Riduce parzialmente il risultato finale *)
+let rec ricombina = function
+	| Molt(Costante a, Costante b) -> Costante (a *. b)
+	| Molt(e, Costante b) ->
+		if (b = 0.0) then (Costante 0.0)
+		else if (b = 1.0) then ricombina e
+		else Molt(ricombina e, Costante b)
+	| Molt(Costante a, e) ->
+		if (a = 0.0) then (Costante 0.0)
+		else if (a = 1.0) then ricombina e
+		else Molt(Costante a, ricombina e)
+	| Molt(e1, e2) -> Molt(ricombina e1, ricombina e2)
+
+
+	| Div (Costante a, Costante b) ->
+		if (b = 0.0) then raise DivisionByZero
+		else Costante (a /. b)
+	| Div(e, Costante b) ->
+		if (b = 0.0) then raise DivisionByZero;
+		if (b = 1.0) then ricombina e
+		else Div(ricombina e, Costante b)
+	| Div(Costante a, e) -> Div(Costante a, ricombina e)
+	| Div(e1, e2) -> Div(ricombina e1, ricombina e2)
+
+
+	| Diff(Costante a, Costante b) -> Costante(a -. b)
+	| Diff(e, Costante b) ->
+		if (b = 0.0) then ricombina e
+		else Diff(ricombina e, Costante b)
+	| Diff(Costante a, e) -> Diff(Costante a, ricombina e)
+	| Diff(e1, e2) -> Diff(ricombina e1, ricombina e2)
+
+
+	| Som(Costante a, Costante b) -> Costante(a +. b)
+	| Som(e, Costante b) ->
+		if (b = 0.0) then ricombina e
+		else Som(ricombina e, Costante b)
+	| Som(Costante a, e) ->
+		if (a = 0.0) then ricombina e
+		else Som(Costante a, ricombina e)
+	| Som(e1, e2) -> Som(ricombina e1, ricombina e2)
+
+
+	| Power(Costante a, Costante b) -> Costante(a ** b)
+	| Power(e, Costante b) ->
+		if (b = 0.0) then (Costante 1.0)
+		else if (b = 1.0) then ricombina e
+		else Power (ricombina e, Costante b)
+	| Power(Costante a, e) -> 
+		if (a = 0.0) then (Costante 0.0)
+		else if (a = 1.0) then ricombina e
+		else Power(Costante a, ricombina e)
+	| Power(e1, e2) -> Power(ricombina e1, ricombina e2)
+
+	| Logaritmo(e) -> Logaritmo(ricombina e)
+	| Coseno(e1) -> Coseno(ricombina e1)
+	| Seno(e1) -> Seno(ricombina e1)
+	| Tangente(e1) -> Tangente(ricombina e1)
+	| Cotangente(e1) -> Cotangente(ricombina e1)
+
+	| Costante c -> Costante c
+	| Variabile x -> Variabile x
+;;
+
+(*funzione per fare il ricombina fino a quando è possibile*)
+let rec ricombina_tutto exp aux=
+  if (exp = aux) then exp
+  else (ricombina_tutto (ricombina exp) exp);;
+
+(*funzione che richiama il ricombina_tutto correttamente*)
+let ricombina_tutto_quanto exp=
+  ricombina_tutto exp (ricombina exp);;
+
+(*funzione che fa la derivata e poi ricombina*)
+let derivaEricombina exp =
+  ricombina_tutto_quanto (deriva exp);;
