@@ -13,8 +13,6 @@ type expr =
   | Coseno of expr
   | Tangente of expr
   | Cotangente of expr
-  | Secante of expr
-  | Cosecante of expr 
   | Logaritmo of expr;;
 
 
