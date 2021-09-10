@@ -38,5 +38,6 @@ expr:
 	| COS LPAREN expr RPAREN						{ Deriv.Coseno($3) }
 	| TAN LPAREN expr RPAREN						{ Deriv.Tangente($3) }
 	| COT LPAREN expr RPAREN						{ Deriv.Cotangente($3) }
+	| MINUS expr %prec UMINUS 					{ Deriv.Diff(Deriv.Costante 0.0, $2) }
 ;
 
