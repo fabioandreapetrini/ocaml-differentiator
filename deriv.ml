@@ -35,20 +35,20 @@ let rec deriva = function
   | _ -> Costante(0.0);;
   
 
-let rec stampaEspressione = function
-| Costante x -> print_string "Costante(";     print_float x;      print_string "0)"
-| Variabile x -> print_string "Variabile(";   print_string x;     print_string ")"
-| Som(e1,e2) -> print_string " Som(";         stampaEspressione e1;         print_string ", ";        stampaEspressione e2;          print_string ")"
-| Diff(e1,e2) -> print_string " Diff(";       stampaEspressione e1;         print_string ", ";        stampaEspressione e2;          print_string ")"
-| Molt (e1,e2) -> print_string " Molt(";      stampaEspressione e1;         print_string ", ";        stampaEspressione e2;          print_string ")"
-| Div (e1,e2) -> print_string " Div(";        stampaEspressione e1;         print_string ", ";        stampaEspressione e2;          print_string ")"
-| Power (e1,e2) -> print_string " Power(";    stampaEspressione e1;         print_string ", ";        stampaEspressione e2;          print_string ")"
-| Seno e -> print_string " Seno(";            stampaEspressione e;          print_string ")"
-| Coseno e -> print_string " Coseno(";        stampaEspressione e;          print_string ")"
-| Tangente e -> print_string " Tangente(";            stampaEspressione e;          print_string ")"
-| Cotangente e -> print_string " Cotangente(";            stampaEspressione e;          print_string ")"
-| Logaritmo e -> print_string " Logaritmo(";            stampaEspressione e;          print_string ")"
-| _ -> print_string "null";;
+let rec stampaEspressioneMath = function
+  | Costante x ->     Printf.printf "%.*f" 2 x;
+  | Variabile x ->    print_string x;
+  | Som(e1,e2) ->     print_string "("; stampaEspressioneMath e1;  print_string " + "; stampaEspressioneMath e2; print_string ")";
+  | Diff(e1,e2) ->    print_string "("; stampaEspressioneMath e1;  print_string " - "; stampaEspressioneMath e2; print_string ")";
+  | Molt (e1,e2) ->   print_string "("; stampaEspressioneMath e1;  print_string " * "; stampaEspressioneMath e2; print_string ")";
+  | Div (e1,e2) ->    print_string "("; stampaEspressioneMath e1;  print_string " / "; stampaEspressioneMath e2; print_string ")";   
+  | Power (e1,e2) ->  print_string "("; stampaEspressioneMath e1;  print_string "^"; stampaEspressioneMath e2; print_string ")";      
+  | Seno e ->         print_string " sin(";  stampaEspressioneMath e;   print_string ")"
+  | Coseno e ->       print_string " cos(";  stampaEspressioneMath e;   print_string ")"
+  | Tangente e ->     print_string " tan(";  stampaEspressioneMath e;   print_string ")"
+  | Cotangente e ->   print_string " cot(";  stampaEspressioneMath e;   print_string ")"
+  | Logaritmo e ->    print_string " log(";  stampaEspressioneMath e;   print_string ")"
+  | _ -> print_string "null";;
 
 
 let rec stampaEspressioneMath = function
