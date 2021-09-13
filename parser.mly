@@ -26,6 +26,8 @@ main:
 expr:
 	| INT 															{ Deriv.Costante (float_of_int $1) } 
 	| FLOAT 														{ Deriv.Costante $1 }	
+	| INT expr 													{ Deriv.Molt(Deriv.Costante (float_of_int $1), $2) } 
+	| FLOAT expr 												{ Deriv.Molt(Deriv.Costante $1, $2) } 
 	| VAR 															{ Deriv.Variabile $1 }
 	| expr PLUS expr 										{ Deriv.Som($1, $3) } 
 	| expr MINUS expr 									{ Deriv.Diff($1, $3) } 
