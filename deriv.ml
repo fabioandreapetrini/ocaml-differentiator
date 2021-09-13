@@ -24,14 +24,14 @@ let rec deriva = function
   | Diff(e1,e2) -> Diff(deriva e1, deriva e2 )
   | Molt(e1,e2) -> Som( Molt(deriva e1, e2), Molt(e1, deriva e2) )
   | Div(e1,e2) -> Div( Diff( Molt(deriva e1, e2), Molt(e1, deriva e2)), Power(e2, Costante(2.0)))
-  | Power(e1, Costante(a) ) -> Molt( Costante(a), Power(e1, (Costante(a -. 1.0))) )
-  | Power(Costante(a), e1) ->  Molt( Power(Costante(a),e1), Logaritmo(Costante(a) ) )
-  | Power(e1, e2) -> Molt( Power(e1,e2), Som(Logaritmo(e1), Costante(1.0) ) )
+  | Power(e1, Costante(a) ) -> Molt( Costante(a),   Molt(deriva e1, Power(e1, (Costante(a -. 1.0)))))       
+  | Power(Costante(a), e1) ->  Molt(deriva e1, Molt(Power(Costante(a),e1), Logaritmo(Costante(a))))
+  | Power(e1, e2) -> Molt(Power(e1,e2), Som(Molt(deriva e2, Logaritmo(e1)), Div(Molt(e2, deriva e1), e1 )))
   | Logaritmo(e1) -> Molt(deriva e1, Div( Costante(1.0), e1))
-  | Seno(e1) -> Coseno(e1)
-  | Coseno(e1) -> Molt( Costante(-1.0), Seno(e1) )
-  | Tangente(e1) -> Div ( Costante(1.0), Power ( Coseno(e1), Costante(2.0)))
-  | Cotangente(e1) -> Div ( Costante(-1.0), Power ( Seno(e1), Costante(2.0)))
+  | Seno(e1) -> Molt(Coseno(e1), deriva e1)
+  | Coseno(e1) -> Molt( Costante(-1.0), Molt(deriva e1, Seno(e1)))
+  | Tangente(e1) -> Molt(deriva e1, Div ( Costante(1.0), Power ( Coseno(e1), Costante(2.0))))
+  | Cotangente(e1) -> Molt(deriva e1, Div ( Costante(-1.0), Power ( Seno(e1), Costante(2.0))))
   | _ -> Costante(0.0);;
   
 
@@ -49,22 +49,6 @@ let rec stampaEspressioneMath = function
   | Cotangente e ->   print_string " cot(";  stampaEspressioneMath e;   print_string ")"
   | Logaritmo e ->    print_string " log(";  stampaEspressioneMath e;   print_string ")"
   | _ -> print_string "null";;
-
-
-let rec stampaEspressioneMath = function
-| Costante x ->     Printf.printf "%.*f" 2 x;
-| Variabile x ->    print_string x;
-| Som(e1,e2) ->     stampaEspressioneMath e1;  print_string " + "; stampaEspressioneMath e2;
-| Diff(e1,e2) ->    stampaEspressioneMath e1;  print_string " - "; stampaEspressioneMath e2;
-| Molt (e1,e2) ->   stampaEspressioneMath e1;  print_string " * "; stampaEspressioneMath e2;
-| Div (e1,e2) ->    stampaEspressioneMath e1;  print_string " / "; stampaEspressioneMath e2;        
-| Power (e1,e2) ->  stampaEspressioneMath e1;  print_string "^"; stampaEspressioneMath e2;        
-| Seno e ->         print_string " sin(";  stampaEspressioneMath e;   print_string ")"
-| Coseno e ->       print_string " cos(";  stampaEspressioneMath e;   print_string ")"
-| Tangente e ->     print_string " tan(";  stampaEspressioneMath e;   print_string ")"
-| Cotangente e ->   print_string " cot(";  stampaEspressioneMath e;   print_string ")"
-| Logaritmo e ->    print_string " log(";  stampaEspressioneMath e;   print_string ")"
-| _ -> print_string "null";;
 
 
 (* Riduce parzialmente il risultato finale *)
