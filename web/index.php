@@ -65,7 +65,7 @@
   <div class="container menu__wrapper">
     <div class="row">
       <div class="menu__logo menu__item">
-        <a href="index.html">
+        <a href="<?php echo $_SERVER['PHP_SELF']; ?>">
           
 		  <img style="width: 80px;" src="assets/img/logo_unipg.gif" />
 		  
@@ -138,7 +138,7 @@
             <div class="form__card calculator__card-form card js-form" id="card-form">
               <div style="height: 250px;" class="calculator__card-send">
                 <h4>Ocaml Differentiator</h4>
-                <p>Inserisci l'espressione da derivare.</p>
+                <p>Inserisci l'espressione da derivare in una variabile reale (x).</p>
                 <div class="form__form-group">
                   <input class="form__input js-field__email" type="text" name="function" placeholder="2x + cos(x) + log(2)" required>
                   <span class="form-validation"></span>
