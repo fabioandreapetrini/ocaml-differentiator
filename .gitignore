@@ -15,4 +15,5 @@ input_example
 derivaFunzioni
 derivaFunzioni.cmi
 derivaFunzioni.cmo
+deployOcaml.sh
 
