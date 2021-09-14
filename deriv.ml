@@ -13,6 +13,8 @@ type expr =
   | Coseno of expr
   | Tangente of expr
   | Cotangente of expr
+  | Secante of expr
+  | Cosecante of expr
   | Logaritmo of expr;;
 
 
@@ -30,6 +32,8 @@ let rec deriva = function
   | Logaritmo(e1) -> Molt(deriva e1, Div( Costante(1.0), e1))
   | Seno(e1) -> Molt(Coseno(e1), deriva e1)
   | Coseno(e1) -> Molt( Costante(-1.0), Molt(deriva e1, Seno(e1)))
+  | Secante(e1) -> Molt(deriva e1, Molt(Secante(e1), Tangente(e1)))
+  | Cosecante(e1) -> Molt(deriva e1, Molt(Molt(Costante(-1.0), Cotangente(e1) ), Cosecante(e1)))
   | Tangente(e1) -> Molt(deriva e1, Div ( Costante(1.0), Power ( Coseno(e1), Costante(2.0))))
   | Cotangente(e1) -> Molt(deriva e1, Div ( Costante(-1.0), Power ( Seno(e1), Costante(2.0))))
   | _ -> Costante(0.0);;
@@ -47,6 +51,8 @@ let rec stampaEspressioneMath = function
   | Coseno e ->       print_string " cos(";  stampaEspressioneMath e;   print_string ")"
   | Tangente e ->     print_string " tan(";  stampaEspressioneMath e;   print_string ")"
   | Cotangente e ->   print_string " cot(";  stampaEspressioneMath e;   print_string ")"
+  | Secante e ->      print_string " sec(";  stampaEspressioneMath e;   print_string ")"
+  | Cosecante e ->    print_string " csc(";  stampaEspressioneMath e;   print_string ")"
   | Logaritmo e ->    print_string " log(";  stampaEspressioneMath e;   print_string ")"
   | _ -> print_string "null";;
 
@@ -133,6 +139,8 @@ let rec ricombina = function
 	| Seno(e1) -> Seno(ricombina e1)
 	| Tangente(e1) -> Tangente(ricombina e1)
 	| Cotangente(e1) -> Cotangente(ricombina e1)
+   | Secante(e1) -> Secante(ricombina e1)
+   | Cosecante(e1) -> Cosecante(ricombina e1)
 	| Costante c -> Costante c
 	| Variabile x -> Variabile x
 ;;

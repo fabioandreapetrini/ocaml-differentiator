@@ -6,7 +6,7 @@
 %token LPAREN RPAREN
 %token EOL 
 %token EOF 
-%token LOG SIN COS TAN COT
+%token LOG SIN COS TAN COT CSC SEC
 %left PLUS MINUS        /* lowest precedence */
 %left TIMES DIV         /* medium precedence */
 %left POWER             /* medium precedence */
@@ -40,6 +40,8 @@ expr:
 	| COS LPAREN expr RPAREN						{ Deriv.Coseno($3) }
 	| TAN LPAREN expr RPAREN						{ Deriv.Tangente($3) }
 	| COT LPAREN expr RPAREN						{ Deriv.Cotangente($3) }
+	| SEC LPAREN expr RPAREN						{ Deriv.Secante($3) }
+	| CSC LPAREN expr RPAREN						{ Deriv.Cosecante($3) }
 	| MINUS expr %prec UMINUS 					{ Deriv.Diff(Deriv.Costante 0.0, $2) }
 ;
 

@@ -13,6 +13,8 @@ rule token = parse
   | "cos"                             { COS }
   | "tan"                             { TAN }
   | "cot"                             { COT }
+  | "sec"                             { SEC }
+  | "csc"                             { CSC }
   | ['a'-'z''A'-'Z']['a'-'z''A'-'Z''0'-'9''_']* as lxm { VAR(lxm) }
   | '+'                               { PLUS }
   | '-'                               { MINUS }

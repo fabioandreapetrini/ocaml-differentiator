@@ -17,6 +17,8 @@ let print_token = function
     | COS -> print_string "COS "; print_newline()
     | TAN -> print_string "TAN "; print_newline()
     | COT -> print_string "COT "; print_newline()
+    | SEC -> print_string "SEC "; print_newline()
+    | CSC -> print_string "CSC "; print_newline()
     | EOL -> print_string "EOL "; print_newline()
     | EOF -> print_string "EOF "; print_newline()
 
