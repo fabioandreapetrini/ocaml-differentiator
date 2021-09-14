@@ -1,3 +1,19 @@
+<?php
+  if (!empty($_GET)) {
+          $inputString = str_replace('+', '%2B', $_GET['function']);
+          $function = urldecode(trim($inputString));
+          $cmd = '/home/u1479-skyqngkbvhjz/ocaml/derivaFunzioni' . ' ' . '"' . $function . '"';
+          $cmdResult = exec($cmd);
+
+
+          // echo "<strong>comando inviato:</strong> " . $cmd;
+          // echo '<br />';
+          // echo "<strong>funzione input:</strong> " . $function;
+          // echo '<br />';
+          // echo '<strong>derivata:</strong> ' . $cmdResult;
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -116,17 +132,17 @@
     <div class="row">
       <div id="top" class=" col-6 col-t-12 col-m-8">
         <div class="calculator__content">
-          <form class="form calculator-form">
+          <form class="form calculator-form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get" enctype="application/x-www-form-urlencoded">
             <div class="form__card calculator__card-form card js-form" id="card-form">
               <div style="height: 250px;" class="calculator__card-send">
                 <h4>Ocaml Differentiator</h4>
                 <p>Inserisci l'espressione da derivare.</p>
                 <div class="form__form-group">
-                  <input class="form__input js-field__email" type="text" placeholder="2x + cos(x) + log(2)" required>
+                  <input class="form__input js-field__email" type="text" name="function" placeholder="2x + cos(x) + log(2)" required>
                   <span class="form-validation"></span>
                 </div>
-				<br />
-                <button style="background-color: #7676f8;" class="site-btn site-btn--accent form__submit " type="submit" value="Send" disabled>Calcola derivata</button>
+				        <br />  
+                <input style="background-color: #7676f8;" class="site-btn site-btn--accent form__submit " type="submit" value="Calcola derivata" />
               </div>
             </div>
           </form>
@@ -135,18 +151,16 @@
 	  
       <div id="top" class=" col-6 col-t-12 col-m-8">
         <div class="calculator__content">
-          <form class="form calculator-form">
             <div class="form__card calculator__card-form card js-form" id="card-form">
               <div style="height: 250px;" class="calculator__card-send">
                 <h4>Risultato</h4>
 				<p style="text-align:center; margin-top: 80px;">
-				  `2 * cos(x)/(2a) .`
+				  `<?php echo $cmdResult; ?>`
 				</p>
 				<br />
               </div>
 
             </div>
-          </form>
 		  
 		  
         </div>
