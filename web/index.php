@@ -1,8 +1,10 @@
+<?php require("config.php"); ?>
+
 <?php
   if (!empty($_GET)) {
           $inputString = str_replace('+', '%2B', $_GET['function']);
           $function = urldecode(trim($inputString));
-          $cmd = '/home/u1479-skyqngkbvhjz/ocaml/derivaFunzioni' . ' ' . '"' . $function . '"';
+          $cmd = $pathOcamlDerivaFunzioni . ' ' . '"' . $function . '"';
           $cmdResult = exec($cmd);
 
 
@@ -154,19 +156,22 @@
             <div class="form__card calculator__card-form card js-form" id="card-form">
               <div style="height: 250px;" class="calculator__card-send">
                 <h4>Risultato</h4>
-				<p style="text-align:center; margin-top: 80px;">
-				  `<?php echo $cmdResult; ?>`
-				</p>
-				<br />
+                <p style="text-align:center; margin-top: 80px;">
+                  <?php 
+                      if (!empty($cmdResult) && $cmdResult == 'Error_DivisionByZero') {
+                        echo "Errore: impossibile effettuare una divisione per zero.";
+                      } else if (!empty($cmdResult)) {
+                        echo htmlspecialchars('`') . "dx/dt($function) = $cmdResult" . htmlspecialchars('`');
+                      } else {
+                        echo "Errore: output vuoto, verificare la correttezza della funzione in input.";
+                      }
+                    ?>
+                </p>
+                <br />
               </div>
-
             </div>
-		  
-		  
         </div>
-		
       </div>
-
     </div>
   </div>
 </div>
