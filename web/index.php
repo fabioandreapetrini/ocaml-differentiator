@@ -33,14 +33,12 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="assets/css/tablesaw.css">
   <link rel="stylesheet" href="assets/css/main.css" id="main_style">
-  <link rel="stylesheet" href="assets/css/jquery-ui.min.css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,800" rel="stylesheet">
   <link href="https://cdn.materialdesignicons.com/2.0.46/css/materialdesignicons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/jquery-ui.min.css">
   <script src="assets/js/vendor/tablesaw.js"></script>
   <script src="assets/js/vendor/tablesaw-init.js"></script>
   <title>Intelligent Application Development - Progetto d'esame degli studenti Fabio Andrea Petrini e Matteo Baldassarrini</title>
-  <link rel="icon" href="assets/img/Logo_32x32.png" type="image/png">
   <link rel="stylesheet" href="assets/css/custom.css">
 </head>
 <body>
@@ -115,43 +113,40 @@
     <div class="row">
       <div class="col-offset-2 col-8 col-t-12 col-m-8 col-offset-2">
         <div class="calculator__content">
-          <form class="form calculator-form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get" enctype="application/x-www-form-urlencoded">
-            <div class="form__card calculator__card-form card js-form" id="card-form">
-              <div style="height: 250px;" class="calculator__card-send">
-                <h4>Ocaml Differentiator</h4>
-                <p>Inserisci l'espressione da derivare in una variabile reale (x).</p>
-                <div class="form__form-group">
-                  <input class="form__input js-field__email" type="text" name="function" placeholder="2x + cos(x) + log(2)" required>
-                  <span class="form-validation"></span>
-                </div>
-				        <br />  
-                <input style="background-color: #7676f8;" class="site-btn site-btn--accent form__submit " type="submit" value="Calcola derivata" />
-              </div>
-
-              <?php if (!empty($inputString)): ?>
-                <div id="outputDerivata">
-                    <?php 
-                        if (!empty($cmdResult) && $cmdResult == 'Error_DivisionByZero') {
-                          echo "Errore: impossibile effettuare una divisione per zero.";
-                        } else if (!empty($cmdResult)) {
-                          echo htmlspecialchars('`') . "dx/dt($function) = $cmdResult" . htmlspecialchars('`');
-                        } else {
-                          echo "Errore: output vuoto, verificare la correttezza della funzione in input.";
-                        }
-                      ?>
-                  <br />
-                </div>
-              <?php endif; ?>
+          <div class="form__card calculator__card-form card js-form" id="card-form">
+            <div style="height: 250px;" class="calculator__card-send">
+              <h4>Ocaml Differentiator</h4>
+              <p>Inserisci l'espressione da derivare in una variabile reale (x).</p>
+                <form class="form calculator-form" action="<?php echo $_SERVER['PHP_SELF']; ?>#outputDerivataAnchor" method="get" enctype="application/x-www-form-urlencoded">
+                  <div class="form__form-group">
+                    <input class="form__input js-field__email" type="text" name="function" placeholder="2x + cos(x) + log(2)" required>
+                    <span class="form-validation"></span>
+                  </div>
+                  <br />  
+                  <input style="background-color: #7676f8;" class="site-btn site-btn--accent form__submit " type="submit" value="Calcola derivata" />
+                </form>
 
 
+                <a name="outputDerivataAnchor"></a>
+                <?php if (!empty($inputString)): ?>
+                  <div id="outputDerivata">
+                      <?php 
+                          if (!empty($cmdResult) && $cmdResult == 'Error_DivisionByZero') {
+                            echo "Errore: impossibile effettuare una divisione per zero.";
+                          } else if (!empty($cmdResult)) {
+                            echo htmlspecialchars('`') . "dx/dt($function) = $cmdResult" . htmlspecialchars('`');
+                          } else {
+                            echo "Errore: output vuoto, verificare la correttezza della funzione in input.";
+                          }
+                        ?>
+                    <br />
+                  </div>
+                <?php endif; ?>
             </div>
-          </form>
 
-
+          </div>
         </div>
       </div>
-	  
-
     </div>
   </div>
 </div>
@@ -185,15 +180,5 @@
 </div>
 <!--Footer-->
 
-<script src="assets/js/vendor/jquery-2.2.4.min.js"></script>
-<script src="assets/js/vendor/jquery.waypoints.js"></script>
-<script src="assets/js/menu.js"></script>
-<script src="assets/js/vendor/jquery.mask.min.js"></script>
-<script src="assets/js/mobile-menu.js"></script>
-<script src="assets/js/style-switcher.js"></script>
-<script src="assets/js/sidebar.js"></script>
-<script src="assets/js/vendor/device.js"></script>
-<script src="assets/js/calculator.js"></script>
-<script src="assets/js/validation.js"></script>
 </body>
 </html>
