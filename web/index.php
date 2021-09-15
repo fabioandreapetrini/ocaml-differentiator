@@ -31,13 +31,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="assets/css/tablesaw.css">
   <link rel="stylesheet" href="assets/css/main.css" id="main_style">
   <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,800" rel="stylesheet">
   <link href="https://cdn.materialdesignicons.com/2.0.46/css/materialdesignicons.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/jquery-ui.min.css">
-  <script src="assets/js/vendor/tablesaw.js"></script>
-  <script src="assets/js/vendor/tablesaw-init.js"></script>
   <title>Intelligent Application Development - Progetto d'esame degli studenti Fabio Andrea Petrini e Matteo Baldassarrini</title>
   <link rel="stylesheet" href="assets/css/custom.css">
 </head>
