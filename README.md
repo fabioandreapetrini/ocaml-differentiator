@@ -29,7 +29,7 @@ edit ```config.php``` with path of ```derivaFunzioni``` and copy it with all oth
 Enjoy!
 
 
-## Exam:
+## Exam
 
 Artificial Intelligence - Intelligent Application Development
 (Università degli Studi di Perugia)
