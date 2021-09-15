@@ -1,5 +1,6 @@
 # Ocaml Differentiator
-Ocaml software that allows you to calculate the derivative of a function in a real variable.
+Ocaml Differentiator is a PHP Web application that allows you to calculate the derivative of a function in a real variable.
+The PHP script receives an input string from the form and after encoding it, it passes it in input to the Ocaml differentiator and prints the output of it.
 
 ## Getting Started 
 ### Installing
