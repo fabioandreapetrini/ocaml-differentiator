@@ -32,7 +32,7 @@ Enjoy!
 ## Exam
 
 Artificial Intelligence - Intelligent Application Development
-(Università degli Studi di Perugia)
+(University of Perugia)
 
 ## Authors
 
