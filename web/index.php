@@ -69,7 +69,7 @@
               <p>Inserisci l'espressione da derivare in una variabile reale (x).</p>
                 <form class="form calculator-form" action="<?php echo $_SERVER['PHP_SELF']; ?>#outputDerivataAnchor" method="get" enctype="application/x-www-form-urlencoded">
                   <div class="form__form-group">
-                    <input class="form__input js-field__email" type="text" name="function" placeholder="2x + cos(x) + log(2)" required>
+                    <input class="form__input js-field__email" type="text" name="function" value="<?php echo $function; ?>" placeholder="2x + cos(x) + log(2)" required>
                     <span class="form-validation"></span>
                   </div>
                   <br />  
