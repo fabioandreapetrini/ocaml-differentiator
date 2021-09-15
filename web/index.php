@@ -41,24 +41,10 @@
   <script src="assets/js/vendor/tablesaw-init.js"></script>
   <title>Intelligent Application Development - Progetto d'esame degli studenti Fabio Andrea Petrini e Matteo Baldassarrini</title>
   <link rel="icon" href="assets/img/Logo_32x32.png" type="image/png">
+  <link rel="stylesheet" href="assets/css/custom.css">
 </head>
 <body>
 
-<!--Switcher-->
-<div class="style-switcher">
-  <span class="style-switcher__control"></span>
-  <div class="style-switcher__list">
-    <a class="style-switcher__link style-switcher__link--red active" href="assets/css/red.css"></a>
-    <a class="style-switcher__link style-switcher__link--blue" href="assets/css/blue.css"></a>
-    <a class="style-switcher__link style-switcher__link--violet" href="assets/css/violet.css"></a>
-    <a class="style-switcher__link style-switcher__link--green" href="assets/css/green.css"></a> <br/>
-    <a class="style-switcher__link style-switcher__link--red-gradient" href="assets/css/red-gradient.css"></a>
-    <a class="style-switcher__link style-switcher__link--blue-gradient" href="assets/css/blue-gradient.css"></a>
-    <a class="style-switcher__link style-switcher__link--violet-gradient" href="assets/css/violet-gradient.css"></a>
-    <a class="style-switcher__link style-switcher__link--green-gradient" href="assets/css/green-gradient.css"></a>
-  </div>
-</div>
-<!--Switcher-->
 
 <!--Main menu-->
 <div class="menu">
@@ -66,16 +52,11 @@
     <div class="row">
       <div class="menu__logo menu__item">
         <a href="<?php echo $_SERVER['PHP_SELF']; ?>">
-          
-		  <img style="width: 80px;" src="assets/img/logo_unipg.gif" />
-		  
-          <p class="menu__logo-title">Intelligent Application Development <br /><span style="text-align: left; font-size: 16px;">Progetto d'esame</span></p>
-		  
+          <img style="width: 120px;" src="assets/img/logo_unipg.gif" />
         </a>
-		
+        <h4 class="">Intelligent Application Development</h4>
+        <span style="text-align: left; font-size: 18px;">Progetto d'esame</span></p>
       </div>
-
-
     </div>
   </div>
 </div>
@@ -132,7 +113,7 @@
 
   <div style="min-height: 400px;" class="container calculator">
     <div class="row">
-      <div id="top" class=" col-6 col-t-12 col-m-8">
+      <div class="col-offset-2 col-8 col-t-12 col-m-8 col-offset-2">
         <div class="calculator__content">
           <form class="form calculator-form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get" enctype="application/x-www-form-urlencoded">
             <div class="form__card calculator__card-form card js-form" id="card-form">
@@ -146,32 +127,31 @@
 				        <br />  
                 <input style="background-color: #7676f8;" class="site-btn site-btn--accent form__submit " type="submit" value="Calcola derivata" />
               </div>
+
+              <?php if (!empty($inputString)): ?>
+                <div id="outputDerivata">
+                    <?php 
+                        if (!empty($cmdResult) && $cmdResult == 'Error_DivisionByZero') {
+                          echo "Errore: impossibile effettuare una divisione per zero.";
+                        } else if (!empty($cmdResult)) {
+                          echo htmlspecialchars('`') . "dx/dt($function) = $cmdResult" . htmlspecialchars('`');
+                        } else {
+                          echo "Errore: output vuoto, verificare la correttezza della funzione in input.";
+                        }
+                      ?>
+                  <br />
+                </div>
+              <?php endif; ?>
+
+
             </div>
           </form>
+
+
         </div>
       </div>
 	  
-      <div id="top" class=" col-6 col-t-12 col-m-8">
-        <div class="calculator__content">
-            <div class="form__card calculator__card-form card js-form" id="card-form">
-              <div style="height: 250px;" class="calculator__card-send">
-                <h4>Risultato</h4>
-                <p style="text-align:center; margin-top: 80px;">
-                  <?php 
-                      if (!empty($cmdResult) && $cmdResult == 'Error_DivisionByZero') {
-                        echo "Errore: impossibile effettuare una divisione per zero.";
-                      } else if (!empty($cmdResult)) {
-                        echo htmlspecialchars('`') . "dx/dt($function) = $cmdResult" . htmlspecialchars('`');
-                      } else {
-                        echo "Errore: output vuoto, verificare la correttezza della funzione in input.";
-                      }
-                    ?>
-                </p>
-                <br />
-              </div>
-            </div>
-        </div>
-      </div>
+
     </div>
   </div>
 </div>
