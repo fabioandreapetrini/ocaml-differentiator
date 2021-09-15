@@ -33,8 +33,8 @@ Enjoy!
 Artificial Intelligence - Intelligent Application Development
 (Università degli Studi di Perugia)
 
-### Students:
+## Authors
 
-Fabio Andrea Petrini
-Matteo Baldassarrini
+* Fabio Andrea Petrini
+* Matteo Baldassarrini
 
