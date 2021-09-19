@@ -6,13 +6,6 @@
           $function = urldecode(trim($inputString));
           $cmd = $pathOcamlDerivaFunzioni . ' ' . '"' . $function . '"';
           $cmdResult = exec($cmd);
-
-
-          // echo "<strong>comando inviato:</strong> " . $cmd;
-          // echo '<br />';
-          // echo "<strong>funzione input:</strong> " . $function;
-          // echo '<br />';
-          // echo '<strong>derivata:</strong> ' . $cmdResult;
   }
 ?>
 
