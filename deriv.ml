@@ -40,7 +40,11 @@ let rec deriva = function
   
 
 let rec stampaEspressioneMath = function
-  | Costante x ->     Printf.printf "%.*f" 2 x;
+  | Costante x ->     
+      if (float_of_int(int_of_float(x)) = x) then
+        print_int (int_of_float(x))
+      else 
+        Printf.printf "%.*f" 2 x;
   | Variabile x ->    print_string x;
   | Som(e1,e2) ->     print_string "("; stampaEspressioneMath e1;  print_string " + "; stampaEspressioneMath e2; print_string ")";
   | Diff(e1,e2) ->    print_string "("; stampaEspressioneMath e1;  print_string " - "; stampaEspressioneMath e2; print_string ")";
