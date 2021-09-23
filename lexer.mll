@@ -1,6 +1,6 @@
 (* File lexer.mll *)
 {
-open Parser        
+open Parser 
 exception Eof
 }
 rule token = parse
@@ -15,7 +15,7 @@ rule token = parse
   | "cot"                             { COT }
   | "sec"                             { SEC }
   | "csc"                             { CSC }
-  | ['a'-'z''A'-'Z']['a'-'z''A'-'Z''0'-'9''_']* as lxm { VAR(lxm) }
+  | ['x''X'] as lxm                   { VAR(String.make 1 lxm) }
   | '+'                               { PLUS }
   | '-'                               { MINUS }
   | '*'                               { TIMES }
