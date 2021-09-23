@@ -41,8 +41,7 @@ let rec deriva = function
   | Secante(e1) -> Molt(deriva e1, Molt(Secante(e1), Tangente(e1)))
   | Cosecante(e1) -> Molt(deriva e1, Molt(Molt(Costante(-1.0), Cotangente(e1) ), Cosecante(e1)))
   | Tangente(e1) -> Molt(deriva e1, Div ( Costante(1.0), Power ( Coseno(e1), Costante(2.0))))
-  | Cotangente(e1) -> Molt(deriva e1, Div ( Costante(-1.0), Power ( Seno(e1), Costante(2.0))))
-  | _ -> Costante(0.0);;
+  | Cotangente(e1) -> Molt(deriva e1, Div ( Costante(-1.0), Power ( Seno(e1), Costante(2.0))));;
   
 
 
@@ -67,8 +66,7 @@ let rec stampaEspressione = function
   | Cotangente e ->   print_string " cot(";  stampaEspressione e;   print_string ")"
   | Secante e ->      print_string " sec(";  stampaEspressione e;   print_string ")"
   | Cosecante e ->    print_string " csc(";  stampaEspressione e;   print_string ")"
-  | Logaritmo e ->    print_string " log(";  stampaEspressione e;   print_string ")"
-  | _ -> print_string "null";;
+  | Logaritmo e ->    print_string " log(";  stampaEspressione e;   print_string ")";;
 
 
 (* 
