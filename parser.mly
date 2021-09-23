@@ -1,3 +1,8 @@
+(*
+	In questo file abbiamo prima dichiarato i diversi simboli come Token, tra i quali quelli relativi alle variabili 
+	e costanti di tipo intero e float e simboli relativi alle funzioni/operazioni utilizzate. 
+*)
+
 /* File parser.mly */
 %token <int> INT
 %token <float> FLOAT 

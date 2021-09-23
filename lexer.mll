@@ -1,10 +1,17 @@
 (* File lexer.mll *)
+(*
+  Nell'header di questo file viene aperto il Parser, in quanto in esso è presente la definizione del tipo \emph{token}.
+  Successivamente specifichiamo il nome dell’entrypoint con il nome “token”. 
+  In seguito indichiamo tutte le espressioni regolari che possiamo incontrare con la relativa azione da svolgere, 
+  in modo che venga prodotto l'output che sarà poi passato al parser.
+*)
+
 {
 open Parser 
 exception Eof
 }
 rule token = parse
-	[' ' '\t']                          { token lexbuf }    
+	[' ' '\t']                          { token lexbuf }    (* salta caratteri vuoti *)
   | ['\n' ]                           { EOL }
   | ['0'-'9']+ as lxm                 { INT(int_of_string lxm) }
   | ['0'-'9']*'.'['0'-'9']+ as lxm    { FLOAT(float_of_string lxm) }
