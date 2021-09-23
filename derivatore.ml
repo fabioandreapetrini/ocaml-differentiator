@@ -22,7 +22,7 @@ type espressione =
 
 (* 
    Funzione che deriva l'espressione. 
-   Si tratta di una funzione ricorsiva che prende in input una variabile di tipo espressione, utilizzando il pattern matching per discrimanere i diversi tipi,
+   Si tratta di una funzione ricorsiva che prende in input una variabile di tipo espressione, utilizzando il pattern matching per discriminare i diversi tipi,
    al fine di restituire l'espressione derivata.
 *)
 let rec deriva = function
@@ -161,15 +161,13 @@ let rec ricombina = function
 	| Variabile x -> Variabile x
 ;;
 
-let rec ricombinaFinoAeguaglianzaEspressioni exp aux =
-  if (exp = aux) then exp
-  else (ricombinaFinoAeguaglianzaEspressioni (ricombina exp) exp);;
-
-let ricombinaFinoAeguaglianzaEspressioniWrapper exp =
-  ricombinaFinoAeguaglianzaEspressioni (ricombina exp) exp;;
-
 (* 
    funzione che richiama la funzione deriva e poi ricombina l'output restituito da quest'ultima 
 *)
-let derivaEricombina exp =
-  ricombinaFinoAeguaglianzaEspressioniWrapper (deriva exp);;
+let derivaEricombina espressione =
+  let rec aux exp exp2 =
+    if (exp = exp2) then 
+      exp
+    else 
+      (aux (ricombina exp) exp) 
+  in aux (ricombina (deriva espressione)) (deriva espressione);;
