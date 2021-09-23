@@ -1,24 +1,30 @@
 exception DivisionByZero;;
 
-type expr =
-  None
-  |  Costante of float
+(* 
+   Definisce il tipo espressione attraverso l'unione di diversi tipi associati al rispettivo costruttore 
+*)
+type espressione =
+   Costante of float
   | Variabile of string
-  | Som of expr * expr
-  | Diff of expr * expr
-  | Molt of expr * expr
-  | Div of expr * expr 
-  | Power of expr * expr
-  | Seno of expr
-  | Coseno of expr
-  | Tangente of expr
-  | Cotangente of expr
-  | Secante of expr
-  | Cosecante of expr
-  | Logaritmo of expr;;
+  | Som of espressione * espressione
+  | Diff of espressione * espressione
+  | Molt of espressione * espressione
+  | Div of espressione * espressione 
+  | Power of espressione * espressione
+  | Seno of espressione
+  | Coseno of espressione
+  | Tangente of espressione
+  | Cotangente of espressione
+  | Secante of espressione
+  | Cosecante of espressione
+  | Logaritmo of espressione;;
 
 
-
+(* 
+   Funzione che deriva l'espressione. 
+   Si tratta di una funzione ricorsiva che prende in input una variabile di tipo espressione, utilizzando il pattern matching per discrimanere i diversi tipi,
+   al fine di restituire l'espressione derivata.
+*)
 let rec deriva = function
     Costante n -> Costante(0.0)
   | Variabile x -> Costante(1.0)
@@ -39,29 +45,35 @@ let rec deriva = function
   | _ -> Costante(0.0);;
   
 
-let rec stampaEspressioneMath = function
+
+(*
+   Stampa l'espressione in formato leggibile dall'essere umano.
+*)
+let rec stampaEspressione = function
   | Costante x ->     
       if (float_of_int(int_of_float(x)) = x) then
         print_int (int_of_float(x))
       else 
         Printf.printf "%.*f" 2 x;
   | Variabile x ->    print_string x;
-  | Som(e1,e2) ->     print_string "("; stampaEspressioneMath e1;  print_string " + "; stampaEspressioneMath e2; print_string ")";
-  | Diff(e1,e2) ->    print_string "("; stampaEspressioneMath e1;  print_string " - "; stampaEspressioneMath e2; print_string ")";
-  | Molt (e1,e2) ->   print_string "("; stampaEspressioneMath e1;  print_string " * "; stampaEspressioneMath e2; print_string ")";
-  | Div (e1,e2) ->    print_string "("; stampaEspressioneMath e1;  print_string " / "; stampaEspressioneMath e2; print_string ")";   
-  | Power (e1,e2) ->  print_string "("; stampaEspressioneMath e1;  print_string "^"; stampaEspressioneMath e2; print_string ")";      
-  | Seno e ->         print_string " sin(";  stampaEspressioneMath e;   print_string ")"
-  | Coseno e ->       print_string " cos(";  stampaEspressioneMath e;   print_string ")"
-  | Tangente e ->     print_string " tan(";  stampaEspressioneMath e;   print_string ")"
-  | Cotangente e ->   print_string " cot(";  stampaEspressioneMath e;   print_string ")"
-  | Secante e ->      print_string " sec(";  stampaEspressioneMath e;   print_string ")"
-  | Cosecante e ->    print_string " csc(";  stampaEspressioneMath e;   print_string ")"
-  | Logaritmo e ->    print_string " log(";  stampaEspressioneMath e;   print_string ")"
+  | Som(e1,e2) ->     print_string "("; stampaEspressione e1;  print_string " + "; stampaEspressione e2; print_string ")";
+  | Diff(e1,e2) ->    print_string "("; stampaEspressione e1;  print_string " - "; stampaEspressione e2; print_string ")";
+  | Molt (e1,e2) ->   print_string "("; stampaEspressione e1;  print_string " * "; stampaEspressione e2; print_string ")";
+  | Div (e1,e2) ->    print_string "("; stampaEspressione e1;  print_string " / "; stampaEspressione e2; print_string ")";   
+  | Power (e1,e2) ->  print_string "("; stampaEspressione e1;  print_string "^"; stampaEspressione e2; print_string ")";      
+  | Seno e ->         print_string " sin(";  stampaEspressione e;   print_string ")"
+  | Coseno e ->       print_string " cos(";  stampaEspressione e;   print_string ")"
+  | Tangente e ->     print_string " tan(";  stampaEspressione e;   print_string ")"
+  | Cotangente e ->   print_string " cot(";  stampaEspressione e;   print_string ")"
+  | Secante e ->      print_string " sec(";  stampaEspressione e;   print_string ")"
+  | Cosecante e ->    print_string " csc(";  stampaEspressione e;   print_string ")"
+  | Logaritmo e ->    print_string " log(";  stampaEspressione e;   print_string ")"
   | _ -> print_string "null";;
 
 
-(* Riduce parzialmente il risultato finale *)
+(* 
+   Riduce parzialmente il risultato finale 
+*)
 let rec ricombina = function
 	| Molt(Costante a, Costante b) -> Costante (a *. b)
 	| Molt(e, Costante b) ->
@@ -149,15 +161,15 @@ let rec ricombina = function
 	| Variabile x -> Variabile x
 ;;
 
-(*funzione per fare il ricombina fino a quando è possibile*)
-let rec ricombina_tutto exp aux=
+let rec ricombinaFinoAeguaglianzaEspressioni exp aux =
   if (exp = aux) then exp
-  else (ricombina_tutto (ricombina exp) exp);;
+  else (ricombinaFinoAeguaglianzaEspressioni (ricombina exp) exp);;
 
-(*funzione che richiama il ricombina_tutto correttamente*)
-let ricombina_tutto_quanto exp=
-  ricombina_tutto (ricombina exp) exp;;
+let ricombinaFinoAeguaglianzaEspressioniWrapper exp =
+  ricombinaFinoAeguaglianzaEspressioni (ricombina exp) exp;;
 
-(*funzione che fa la derivata e poi ricombina*)
+(* 
+   funzione che richiama la funzione deriva e poi ricombina l'output restituito da quest'ultima 
+*)
 let derivaEricombina exp =
-  ricombina_tutto_quanto (deriva exp);;
+  ricombinaFinoAeguaglianzaEspressioniWrapper (deriva exp);;

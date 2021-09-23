@@ -1,6 +1,6 @@
 deriv
-deriv.cmi
-deriv.cmo
+derivatore.cmi
+derivatore.cmo
 lexer.cmi
 lexer.cmo
 lexer.ml

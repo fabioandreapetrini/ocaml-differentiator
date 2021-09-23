@@ -12,36 +12,36 @@
 %left POWER             /* medium precedence */
 %nonassoc UMINUS        /* highest precedence */
 
-open Deriv
+open Derivatore
 
 %start main             /* the entry point */
 
-%type <Deriv.expr> main
+%type <Derivatore.espressione> main
 %%
 main:
-    | expr EOL 				{ $1 } 
+    | espressione EOL 				{ $1 } 
 ;
 
 
-expr:
-	| INT 															{ Deriv.Costante (float_of_int $1) } 
-	| FLOAT 														{ Deriv.Costante $1 }	
-	| INT expr 													{ Deriv.Molt(Deriv.Costante (float_of_int $1), $2) } 
-	| FLOAT expr 												{ Deriv.Molt(Deriv.Costante $1, $2) } 
-	| VAR 															{ Deriv.Variabile $1 }
-	| expr PLUS expr 										{ Deriv.Som($1, $3) } 
-	| expr MINUS expr 									{ Deriv.Diff($1, $3) } 
-	| expr TIMES expr 									{ Deriv.Molt($1, $3) } 
-	| expr DIV expr 										{ Deriv.Div($1, $3) } 
-	| expr POWER expr 									{ Deriv.Power($1, $3) } 
-	| LPAREN expr RPAREN 								{ $2 } 
-	| LOG LPAREN expr RPAREN						{ Deriv.Logaritmo($3) }
-	| SIN LPAREN expr RPAREN						{ Deriv.Seno($3) }
-	| COS LPAREN expr RPAREN						{ Deriv.Coseno($3) }
-	| TAN LPAREN expr RPAREN						{ Deriv.Tangente($3) }
-	| COT LPAREN expr RPAREN						{ Deriv.Cotangente($3) }
-	| SEC LPAREN expr RPAREN						{ Deriv.Secante($3) }
-	| CSC LPAREN expr RPAREN						{ Deriv.Cosecante($3) }
-	| MINUS expr %prec UMINUS 					{ Deriv.Diff(Deriv.Costante 0.0, $2) }
+espressione:
+	| INT 															{ Derivatore.Costante (float_of_int $1) } 
+	| FLOAT 														{ Derivatore.Costante $1 }	
+	| INT espressione 									{ Derivatore.Molt(Derivatore.Costante (float_of_int $1), $2) } 
+	| FLOAT espressione 								{ Derivatore.Molt(Derivatore.Costante $1, $2) } 
+	| VAR 															{ Derivatore.Variabile $1 }
+	| espressione PLUS espressione 			{ Derivatore.Som($1, $3) } 
+	| espressione MINUS espressione 		{ Derivatore.Diff($1, $3) } 
+	| espressione TIMES espressione 		{ Derivatore.Molt($1, $3) } 
+	| espressione DIV espressione 			{ Derivatore.Div($1, $3) } 
+	| espressione POWER espressione 		{ Derivatore.Power($1, $3) } 
+	| LPAREN espressione RPAREN 				{ $2 } 
+	| LOG LPAREN espressione RPAREN			{ Derivatore.Logaritmo($3) }
+	| SIN LPAREN espressione RPAREN			{ Derivatore.Seno($3) }
+	| COS LPAREN espressione RPAREN			{ Derivatore.Coseno($3) }
+	| TAN LPAREN espressione RPAREN			{ Derivatore.Tangente($3) }
+	| COT LPAREN espressione RPAREN			{ Derivatore.Cotangente($3) }
+	| SEC LPAREN espressione RPAREN			{ Derivatore.Secante($3) }
+	| CSC LPAREN espressione RPAREN			{ Derivatore.Cosecante($3) }
+	| MINUS espressione %prec UMINUS 		{ Derivatore.Diff(Derivatore.Costante 0.0, $2) }
 ;
 

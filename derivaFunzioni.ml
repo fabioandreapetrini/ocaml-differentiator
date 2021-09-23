@@ -1,6 +1,6 @@
 open Lexing
 open Parser
-open Deriv
+open Derivatore
 
 let espressioneInput = String.concat Sys.argv.(1) [""; "\n"];;
 
@@ -8,6 +8,6 @@ let _ =
       try
             let lexbuf = Lexing.from_string espressioneInput in
             let result = Parser.main Lexer.token lexbuf in
-            Deriv.stampaEspressioneMath (Deriv.derivaEricombina result);
+            Derivatore.stampaEspressione (Derivatore.derivaEricombina result);
       with
        | DivisionByZero -> print_string "Error_DivisionByZero";;
